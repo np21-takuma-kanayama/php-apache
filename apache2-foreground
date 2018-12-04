@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+sed -ie 's!#ServerName www.example.com:80!ServerName localhost:80!g' /etc/apache2/httpd.conf;
+sed -ie 's!AllowOverride None!AllowOverride All!g' /etc/apache2/httpd.conf;
+sed -ie "s!/var/www/localhost/htdocs!$DocumentRoot!g" /etc/apache2/httpd.conf;
+sh /init.sh
+exec httpd -D FOREGROUND;
+echo 'this container is die';
